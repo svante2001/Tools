@@ -6,7 +6,7 @@
 zipfile=$1
 
 tmpfile=$(mktemp /tmp/$$.XXXXXX)
-for i in .vscode .DS_Store bin obj dll json __MACOSX; do
+for i in .vscode .DS_Store bin obj dll json __MACOSX .git .ionide; do
 	zipinfo "$zipfile" | grep $i | awk '{print $9}' >> $tmpfile
 done
 
