@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# (C) Copyright by Svante Geisshirt <https://github.com/svante2001/>
+# Released under GNU General Public License v3
+
+zipfile=$1
+
+tmpfile=$(mktemp /tmp/$$.XXXXXX)
+for i in .vscode .DS_Store bin obj dll json __MACOSX .git .ionide; do
+	zipinfo "$zipfile" | grep $i | awk '{print $9}' >> $tmpfile
+done
+
+cat $tmpfile | while read line; do
+	zip -d "$zipfile" $line
+done
+
+rm -f $tmpfile
